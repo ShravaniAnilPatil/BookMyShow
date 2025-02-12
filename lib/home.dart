@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'details.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -80,12 +81,13 @@ class HomePage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: Row(
                 children: [
-                  _movieCard('assets/movie1.jpg', 'PROMOTED'),
-                  _movieCard('assets/movie2.jpg', ''),
-                  _movieCard('assets/movie3.jpg', ''),
+                  _movieCard('assets/movie1.jpg', 'PROMOTED', context),
+                  _movieCard('assets/movie2.jpg', '', context),
+                  _movieCard('assets/movie3.jpg', '', context),
                 ],
               ),
             ),
+
           ],
         ),
       ),
@@ -112,27 +114,35 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-Widget _movieCard(String imagePath, String tag) {
-  return Padding(
-    padding: const EdgeInsets.only(right: 10),
-    child: Column(
-      children: [
-        Stack(
-          children: [
-            Image.asset(imagePath, width: 100, height: 150),
-            if (tag.isNotEmpty)
-              Positioned(
-                top: 5,
-                left: 5,
-                child: Container(
-                  color: Colors.red,
-                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                  child: Text(tag, style: TextStyle(color: Colors.white, fontSize: 10)),
+Widget _movieCard(String imagePath, String tag, BuildContext context) {
+  return GestureDetector(
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => DetailsPage()),
+      );
+    },
+    child: Padding(
+      padding: const EdgeInsets.only(right: 10),
+      child: Column(
+        children: [
+          Stack(
+            children: [
+              Image.asset(imagePath, width: 100, height: 150),
+              if (tag.isNotEmpty)
+                Positioned(
+                  top: 5,
+                  left: 5,
+                  child: Container(
+                    color: Colors.red,
+                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                    child: Text(tag, style: TextStyle(color: Colors.white, fontSize: 10)),
+                  ),
                 ),
-              ),
-          ],
-        ),
-      ],
+            ],
+          ),
+        ],
+      ),
     ),
   );
 }

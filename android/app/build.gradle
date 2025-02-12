@@ -42,3 +42,61 @@ android {
 flutter {
     source = "../.."
 }
+buildscript {
+    repositories {
+        google()  // Google's Maven repository
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.google.gms:google-services:4.4.0' // Updated version
+    }
+}
+
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"  // Ensures Flutter variables are available
+
+android {
+    namespace = "com.example.my_app"
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"  // Use string format
+    }
+
+    defaultConfig {
+        applicationId = "com.example.my_app"
+        minSdk = flutter.minSdkVersion
+        targetSdk = flutter.targetSdkVersion
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
+    }
+
+    buildTypes {
+        release {
+            // Ensure a proper signing config is provided for release builds
+            signingConfig signingConfigs.debug
+        }
+    }
+}
+
+flutter {
+    source = "../.."
+}
+
+allprojects {
+    repositories {
+        google()  // Google's Maven repository
+        mavenCentral()
+    }
+}
