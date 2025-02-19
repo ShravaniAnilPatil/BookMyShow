@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'login.dart';
+import 'signup.dart'; // Import the SignupPage
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart'; // Import the Firebase options
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform, // Use the options from firebase_options.dart
+  );
   runApp(MyApp());
 }
 
@@ -79,10 +86,10 @@ class LoginSignupPage extends StatelessWidget {
             ),
             SizedBox(height: 30),
 
-            // Google Sign-in Button
+            // Login Button
             ElevatedButton.icon(
               onPressed: () {
-                // Navigate to HomePage on Google Sign-in click
+                // Navigate to LoginPage
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => LoginPage()),
@@ -99,9 +106,15 @@ class LoginSignupPage extends StatelessWidget {
             ),
             SizedBox(height: 15),
 
-            // Email Sign-in Button
+            // Sign Up Button
             ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                // Navigate to SignupPage
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SignupPage()),
+                );
+              },
               icon: Icon(Icons.email, color: Colors.black),
               label: Text("Sign Up"),
               style: ElevatedButton.styleFrom(
@@ -171,5 +184,3 @@ class LoginSignupPage extends StatelessWidget {
     );
   }
 }
-
-

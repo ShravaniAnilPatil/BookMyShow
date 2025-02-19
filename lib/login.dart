@@ -1,9 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'home.dart'; // Import the HomePage file
 
 class LoginPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  Future<void> _loginUser(BuildContext context) async {
+    String email = emailController.text.trim();
+    String password = passwordController.text.trim();
+
+    if (email.isEmpty || password.isEmpty) {
+      // Show error if fields are empty
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Please enter email and password")),
+      );
+      return;
+    }
+
+    try {
+      // Attempt to sign in using email/password
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      // Check if the user is successfully authenticated
+      if (userCredential.user != null) {
+        // Navigate to HomePage if login is successful
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()),
+        );
+      }
+    } catch (e) {
+      // If error occurs (invalid credentials, network issue, etc.)
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Invalid email or password")),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,21 +91,7 @@ class LoginPage extends StatelessWidget {
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
-                String email = emailController.text;
-                String password = passwordController.text;
-
-                if (email.isNotEmpty && password.isNotEmpty) {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomePage()),
-                  );
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Please enter email and password")),
-                  );
-                }
-              },
+              onPressed: () => _loginUser(context), // Firebase login
               child: Text("Login"),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red,
@@ -78,7 +101,9 @@ class LoginPage extends StatelessWidget {
             ),
             SizedBox(height: 15),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                // Navigate to forgot password page if you have one
+              },
               child: Text(
                 "Forgot Password?",
                 style: TextStyle(color: Colors.red),
@@ -88,7 +113,9 @@ class LoginPage extends StatelessWidget {
             Text("Or login with"),
             SizedBox(height: 10),
             ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                // Add Google login or other login methods here
+              },
               icon: Image.asset('assets/Google.png', width: 24, height: 24),
               label: Text("Login with Google"),
               style: ElevatedButton.styleFrom(
