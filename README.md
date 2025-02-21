@@ -1,16 +1,13 @@
-# my_app
 
-A new Flutter project.
+# BookMyShow Clone - Flutter App
+
+This is a basic Flutter application that clones some of the features of BookMyShow, a popular movie and event ticketing platform.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Prerequisites
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Flutter SDK (version 2.5 or later)
+- Dart SDK (version 2.14 or later)
+- Android Studio / VS Code
+- An emulator or physical device for testing
