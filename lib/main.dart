@@ -66,7 +66,7 @@ class LoginSignupPage extends StatelessWidget {
           TextButton(
             onPressed: () {},
             child: Text(
-              "SKIP",
+              "",
               style: TextStyle(color: Colors.black, fontSize: 16),
             ),
           ),
